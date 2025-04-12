@@ -31,3 +31,37 @@
   </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ランダムフレーズ生成ツール</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2em; background: #f9f9f9; }
+    button { font-size: 1.5em; padding: 0.6em 1.2em; }
+    #output { margin-top: 2em; font-size: 2em; color: #333; }
+  </style>
+</head>
+<body>
+  <h1>ランダムフレーズ生成ツール</h1>
+
+  <button onclick="generatePhrase()">生成する！</button>
+  <div id="output"></div>
+
+  <script>
+    const adjectives = ["かわいい", "おしゃれな", "不思議な", "怪しい", "最強の"];
+    const nouns = ["ネコ", "勇者", "カフェ", "エンジニア", "魔王"];
+    const recruits = ["募集", "急募", "求む", "募集中", "探してます"];
+
+    function generatePhrase() {
+      const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+      const noun = nouns[Math.floor(Math.random() * nouns.length)];
+      const recruit = recruits[Math.floor(Math.random() * recruits.length)];
+
+      const pattern = Math.random() < 0.5 ? `${adj}${noun}` : `${adj}${noun} ${recruit}`;
+      document.getElementById('output').textContent = pattern;
+    }
+  </script>
+</body>
+</html>
