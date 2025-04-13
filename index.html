@@ -38,29 +38,50 @@
   }
 </script>
 
-  const adjectives = ["こっそり", "楽しみたい", "婚外恋愛", "不倫関係", "女でいたい", "40代になったけど", "おじさんが好き", "熟年同士", "熱く求め合いたい", "自信ないけど", "地味だけど", "抱いてほしい", "抱かれたい", "中に出してほしい", "既婚同士", "犯されたい", "潮を飲んで", "おしっこ飲んで", "制服を着たい", "コスプレH", "69", "ソフトSM", "じっくり", "まったり", "気持ちよくなりたい", "前戯を丁寧に", "じっくり前戯", "丁寧なエッチ", "濡れやすくて", "潮吹き好きですか", "内緒で", "内緒で遊びたい", "秘密厳守", "エッチな関係", "じゅぽじゅぽ得意だよ", "夫とはする雰囲気じゃない", "性欲強すぎる"];
-  const nouns = ["男性", "人", "友達"];
-  const recruits = ["募集", "いないかな", "求む", "募集中", "探してます"];
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ランダムフレーズ生成ツール</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2em; background: #f9f9f9; }
+    button { font-size: 1.2em; padding: 0.5em 1em; }
+    #output { margin-top: 1em; font-size: 1.5em; color: #333; }
+    textarea { width: 90%; height: 60px; margin: 10px auto; display: block; }
+  </style>
+</head>
+<body>
+  <h1>ランダムフレーズ生成ツール</h1>
 
-  function generatePhrase() {
-    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-    const noun = nouns[Math.floor(Math.random() * nouns.length)];
-    const recruit = recruits[Math.floor(Math.random() * recruits.length)];
-    return Math.random() < 0.5 ? `${adj}${noun}` : `${adj}${noun} ${recruit}`;
-  }
+  <p>形容詞（◯◯な）</p>
+  <textarea id="adjectives">かわいい, おしゃれな, 不思議な, 怪しい, 最強の</textarea>
 
-  function generatePhrases() {
-    const outputDiv = document.getElementById('output');
-    outputDiv.innerHTML = '';
-    for (let i = 0; i < 35; i++) {
-      const phrase = generatePhrase();
-      const div = document.createElement('div');
-      div.textContent = phrase;
-      div.className = 'phrase';
-      outputDiv.appendChild(div);
+  <p>名詞（◯◯）</p>
+  <textarea id="nouns">ネコ, 勇者, カフェ, エンジニア, 魔王</textarea>
+
+  <p>募集ワード（◯◯募集）</p>
+  <textarea id="recruits">募集, 急募, 求む, 募集中, 探してます</textarea>
+
+  <button onclick="generatePhrase()">生成する！</button>
+  <div id="output"></div>
+
+  <script>
+    function getWords(id) {
+      return document.getElementById(id).value.split(',').map(w => w.trim()).filter(w => w);
     }
-  }
-</script>
 
+    function generatePhrase() {
+      const adjectives = getWords('adjectives');
+      const nouns = getWords('nouns');
+      const recruits = getWords('recruits');
+
+      const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+      const noun = nouns[Math.floor(Math.random() * nouns.length)];
+      const recruit = recruits[Math.floor(Math.random() * recruits.length)];
+
+      const pattern = Math.random() < 0.5 ? `${adj}${noun}` : `${adj}${noun} ${recruit}`;
+      document.getElementById('output').textContent = pattern;
+    }
+  </script>
 </body>
 </html>
