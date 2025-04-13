@@ -1,1 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>パスワード保護ページ</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 2em; background: #f9f9f9; }
+    #main { display: none; }
+    #passwordBox input { font-size: 1.2em; padding: 0.5em; }
+    #passwordBox button { font-size: 1.2em; padding: 0.5em 1em; margin-left: 10px; }
+  </style>
+</head>
+<body>
 
+<div id="passwordBox">
+  <h2>パスワードを入力してください</h2>
+  <input type="password" id="passwordInput">
+  <button onclick="checkPassword()">送信</button>
+</div>
+
+<div id="main">
+  <h1>ランダムフレーズ生成ツール</h1>
+  <button onclick="generatePhrases()">生成する！</button>
+  <div id="output"></div>
+</div>
+
+<script>
+  const correctPassword = "secret123"; // 好きなパスワードに変更してね
+
+  function checkPassword() {
+    const input = document.getElementById("passwordInput").value;
+    if (input === correctPassword) {
+      document.getElementById("passwordBox").style.display = "none";
+      document.getElementById("main").style.display = "block";
+    } else {
+      alert("パスワードが違います");
+    }
+  }
+
+  // ここからフレーズ生成用スクリプト
+  const adjectives = ["あ", "い", "う", "え", "お", "か", "き", "く", "け", "こ"];
+  const nouns = ["男性", "人", "友達"];
+  const recruits = ["募集", "いないかな", "求む", "募集中", "探してます"];
+
+  function generatePhrase() {
+    const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    const recruit = recruits[Math.floor(Math.random() * recruits.length)];
+    return Math.random() < 0.5 ? `${adj}${noun}` : `${adj}${noun} ${recruit}`;
+  }
+
+  function generatePhrases() {
+    const outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = '';
+    for (let i = 0; i < 35; i++) {
+      const phrase = generatePhrase();
+      const div = document.createElement('div');
+      div.textContent = phrase;
+      div.className = 'phrase';
+      outputDiv.appendChild(div);
+    }
+  }
+</script>
+
+</body>
+</html>
